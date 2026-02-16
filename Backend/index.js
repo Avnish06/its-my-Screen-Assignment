@@ -11,6 +11,8 @@ const app = express();
 const server = http.createServer(app);
 
 const allowedOrigins = [
+    'https://its-my-screen-assignment.vercel.app',
+    'https://its-my-screen-assignment-bn8r00xio-avnishs-projects-1ba37bdf.vercel.app',
     'https://its-my-screen-assignment-wnf9.vercel.app',
     'https://its-my-screen-assignment-wnf9-kqngehjlo.vercel.app',
     'http://localhost:5173',
