@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    background-color: #0A0A0F;
+    color: #FFFFFF;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(135deg, #0A0A0F 0%, #1A1A24 100%);
+    min-height: 100vh;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #0066FF #1A1A24;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #1A1A24;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: #0066FF;
+    border-radius: 4px;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: #3385FF;
+  }
+}
+
+@layer components {
+  /* Card Styles with Glassmorphism */
+  .card {
+    @apply bg-gradient-card border border-dark-border rounded-2xl p-6 shadow-card-elevated backdrop-blur-sm;
+    background: linear-gradient(135deg, rgba(26, 26, 36, 0.9) 0%, rgba(42, 42, 62, 0.8) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 102, 255, 0.5), transparent);
+  }
+
+  /* Primary Button with Glow */
+  .btn-primary {
+    @apply bg-primary text-white font-bold py-3 px-8 rounded-xl transition-all duration-300;
+    @apply hover:bg-primary-light hover:shadow-glow-primary hover:scale-105;
+    @apply active:scale-95 active:shadow-none;
+    background: linear-gradient(135deg, #0066FF 0%, #3385FF 100%);
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  /* Secondary Button with Accent Glow */
+  .btn-secondary {
+    @apply bg-accent text-dark-bg font-bold py-3 px-8 rounded-xl transition-all duration-300;
+    @apply hover:bg-accent-light hover:shadow-glow-accent hover:scale-105;
+    @apply active:scale-95 active:shadow-none;
+    background: linear-gradient(135deg, #00F0FF 0%, #33F3FF 100%);
+    box-shadow: 0 4px 15px rgba(0, 240, 255, 0.4);
+  }
+
+  /* Input Fields with Focus Glow */
+  .input-field {
+    @apply bg-dark-card border-2 border-dark-border text-white rounded-xl p-4 w-full;
+    @apply focus:outline-none focus:border-primary focus:shadow-glow-primary;
+    @apply transition-all duration-300 placeholder:text-dark-secondary;
+    background: rgba(26, 26, 36, 0.8);
+    backdrop-filter: blur(10px);
+  }
+
+  .input-field:hover {
+    @apply border-primary/50;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #0066FF 0%, #00F0FF 100%);
+  }
+
+  /* Glass Card */
+  .glass-card {
+    background: rgba(26, 26, 36, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Animated Border */
+  .animated-border {
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(#1A1A24, #1A1A24) padding-box,
+                linear-gradient(135deg, #0066FF, #00F0FF) border-box;
+    border-radius: 1rem;
+  }
+
+  /* Glow Effect */
+  .glow-effect {
+    position: relative;
+  }
+
+  .glow-effect::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #0066FF, #00F0FF);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    filter: blur(10px);
+  }
+
+  .glow-effect:hover::after {
+    opacity: 0.7;
+  }
+}
+
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(0, 102, 255, 0.8);
+  }
+
+  .backdrop-blur-strong {
+    backdrop-filter: blur(20px);
+  }
+}
