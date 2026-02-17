@@ -10,31 +10,31 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-const allowedOrigins = [
-    'https://its-my-screen-assignment.vercel.app',
-    'https://its-my-screen-assignment-bn8r00xio-avnishs-projects-1ba37bdf.vercel.app',
-    'https://its-my-screen-assignment-wnf9.vercel.app',
-    'https://its-my-screen-assignment-wnf9-kqngehjlo.vercel.app',
-    'http://localhost:5173',
-    'http://localhost:3000'
-];
+// Dynamic CORS configuration for Vercel deployments
+const corsOptions = {
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
 
-if (process.env.FRONTEND_URL) {
-    allowedOrigins.push(process.env.FRONTEND_URL);
-}
+        // Allow localhost for development
+        if (origin.includes('localhost')) return callback(null, true);
+
+        // Allow all Vercel preview and production deployments
+        if (origin.includes('vercel.app')) return callback(null, true);
+
+        // Reject all other origins
+        callback(new Error('Not allowed by CORS'));
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'x-auth-token']
+};
 
 const io = new Server(server, {
-    cors: {
-        origin: allowedOrigins,
-        methods: ["GET", "POST"],
-        credentials: true
-    }
+    cors: corsOptions
 });
 
-app.use(cors({
-    origin: allowedOrigins,
-    credentials: true
-}));
+app.use(cors(corsOptions));
 app.use(express.json());
 app.set('trust proxy', true);
 
