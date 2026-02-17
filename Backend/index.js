@@ -38,13 +38,6 @@ app.use(cors({
 app.use(express.json());
 app.set('trust proxy', true);
 
-// Request logging middleware
-app.use((req, res, next) => {
-    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-    if (req.method === 'POST') console.log('Body:', { ...req.body, password: '***' });
-    next();
-});
-
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI)
     .then(() => console.log('MongoDB connected'))
@@ -52,15 +45,12 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Socket.io
 io.on('connection', (socket) => {
-    console.log('A user connected:', socket.id);
-
     socket.on('joinPoll', (pollId) => {
         socket.join(pollId);
-        console.log(`User ${socket.id} joined poll: ${pollId}`);
     });
 
     socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
+        // Handle disconnect
     });
 });
 

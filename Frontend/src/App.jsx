@@ -10,8 +10,6 @@ import CreatePoll from './pages/CreatePoll';
 import PollDetail from './pages/PollDetail';
 
 function App() {
-  console.log('--- ANTIGRAVITY_DEPLOYMENT_V3 ---');
-  console.log('API_URL:', import.meta.env.VITE_API_URL || 'NOT_SET');
   return (
     <Router>
       <AuthProvider>

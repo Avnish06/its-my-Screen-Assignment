@@ -16,21 +16,18 @@ export const AuthProvider = ({ children }) => {
       const storedUser = JSON.parse(localStorage.getItem('user'));
       setUser(storedUser);
       axios.defaults.headers.common['x-auth-token'] = token;
-      console.log('User restored from localStorage:', storedUser?.username);
     }
     setLoading(false);
   }, []);
 
   const login = async (username, password) => {
     try {
-      console.log('Attempting login for user:', username);
       const res = await axios.post(`${API_URL}/auth/login`, { username, password });
       const { token, user: userData } = res.data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       axios.defaults.headers.common['x-auth-token'] = token;
       setUser(userData);
-      console.log('Login successful:', userData.username);
       return userData;
     } catch (error) {
       console.error('Login error:', error.response?.data || error.message);
@@ -40,14 +37,12 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, email, fullName, password) => {
     try {
-      console.log('Attempting registration for user:', username);
       const res = await axios.post(`${API_URL}/auth/register`, { username, email, fullName, password });
       const { token, user: userData } = res.data;
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       axios.defaults.headers.common['x-auth-token'] = token;
       setUser(userData);
-      console.log('Registration successful:', userData.username);
       return userData;
     } catch (error) {
       console.error('Registration error:', error.response?.data || error.message);
@@ -56,7 +51,6 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    console.log('Logging out user:', user?.username);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     delete axios.defaults.headers.common['x-auth-token'];

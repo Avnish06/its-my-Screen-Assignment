@@ -2,7 +2,6 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { LogOut, PlusCircle, LayoutDashboard, Vote } from 'lucide-react';
-import { API_URL } from '../api/config';
 
 const Navbar = () => {
   const { user, logout } = useAuth();
@@ -16,10 +15,6 @@ const Navbar = () => {
   return (
     <nav className="border-b border-white/5 bg-dark-bg/80 backdrop-blur-xl sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Diagnostic Bar */}
-        <div className="text-[9px] text-center text-dark-secondary py-1 border-b border-white/5 font-mono">
-          System: {API_URL ? `Connected to ${API_URL}` : 'Disconnected (Check Vercel Config)'}
-        </div>
         <div className="flex justify-between h-20">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="bg-gradient-primary p-2.5 rounded-xl group-hover:rotate-12 transition-all duration-300 shadow-glow-primary">

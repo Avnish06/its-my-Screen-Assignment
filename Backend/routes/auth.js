@@ -7,17 +7,14 @@ const User = require('../models/User');
 router.post('/register', async (req, res) => {
     try {
         const { username, email, fullName, password } = req.body;
-        console.log('Registration attempt:', { username, email, fullName });
 
         let user = await User.findOne({ $or: [{ username }, { email }] });
         if (user) {
-            console.log('User already exists:', user.username === username ? 'username' : 'email');
             return res.status(400).json({ msg: 'User with this username or email already exists' });
         }
 
         user = new User({ username, email, fullName, password });
         await user.save();
-        console.log('User registered successfully:', username);
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({ token, user: { id: user._id, username: user.username, email: user.email, fullName: user.fullName } });
